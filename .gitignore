@@ -1,0 +1,19 @@
+# 私有：协作约定（含个人信息）
+CLAUDE.md
+# 私有：知识稿（不进公开仓库，另行备份）
+learning/
+# 密钥与本地环境
+.env
+.venv/
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+# 本机工具自动生成的 MCP 配置（指向本机端口，与项目无关）
+/.mcp.json
+# 本地运行数据
+/data/
+/tmp/
