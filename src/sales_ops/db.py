@@ -8,8 +8,13 @@
         s.add(...)
 """
 
+from alembic.config import Config
 from sqlalchemy import Engine, MetaData, create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+
+from sales_ops.config import PROJECT_ROOT
+
+ALEMBIC_INI = PROJECT_ROOT / "alembic.ini"
 
 # 约束命名约定：所有环境里约束名一致，迁移中才能按名修改或删除约束。
 NAMING_CONVENTION = {
@@ -39,3 +44,12 @@ def create_engine_from(url: str) -> Engine:
 
 def make_session_factory(engine: Engine) -> sessionmaker[Session]:
     return sessionmaker(bind=engine, expire_on_commit=False)
+
+
+def alembic_config(url: str) -> Config:
+    """指向给定数据库的 Alembic 配置，供测试与命令行在代码中运行或查询迁移。"""
+    cfg = Config(str(ALEMBIC_INI))
+    cfg.attributes["database_url"] = url
+    # 在代码中调用时不让 env.py 重设日志配置（会关闭调用方已有的日志器）。
+    cfg.attributes["skip_logging_config"] = True
+    return cfg
