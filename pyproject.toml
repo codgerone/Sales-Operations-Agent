@@ -3,7 +3,10 @@ name = "sales-operations-agent"
 version = "1.1.0"
 description = "面向海外销售运营的项目管理 Agent"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "pydantic-settings>=2.12,<3",
+    "sqlalchemy>=2.0,<3",
+]
 
 [project.scripts]
 sales-ops = "sales_ops.cli:main"
